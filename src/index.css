@@ -6,8 +6,8 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-.bg{
+.bg {
   background: url('./assets/Home.jpg');
-  background-size: contain;
+  background-position: center;
   height: 100vh;
 }
