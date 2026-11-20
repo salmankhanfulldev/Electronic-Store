@@ -1,26 +1,38 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { ShoppingCart } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../Features/cart/cartSlice";
+import { formatCurrency } from "../utils/formatCurrency";
+
 const ProductCart = ({ product }) => {
+  const dispatch = useDispatch();
+
   return (
-    <>
-      <Link to={`/product/${product.id}`}>
-        <div className="shadow-lg rounded-md cursor-pointer">
-          <img src={product.img}  className="py-4"/>
-          <div className="bg-gray-50 p-4">
-            <h2 className="text-lg font-semibold my-4 text-center">
-              {product.title.substring(0, 25) + "..."}
-            </h2>
-            <p className="text-sm text-zinc-500 border-b-2 pb-2 w-200px">
-              {product.des.substring(0, 70) + "..."}
-            </p>
-            <div className="flex justify-between mt-4 items-center">
-              <p className="text-xl font-semibold">{product.price}</p>
-              <p>View Detail</p>
-            </div>
-          </div>
+    <article className="product-card">
+      <Link className="product-image-link" to={`/product/${product.id}`}>
+        <div className="product-image-wrap">
+          <img src={product.img} alt={product.title} loading="lazy" />
         </div>
       </Link>
-    </>
+      <div className="product-card-content">
+        <p className="product-category">{product.category}</p>
+        <Link to={`/product/${product.id}`} className="product-title">
+          {product.title}
+        </Link>
+        <p className="product-description">{product.des}</p>
+        <div className="product-card-bottom">
+          <span className="product-price">{formatCurrency(product.price)}</span>
+          <button
+            className="icon-button add-to-cart-button"
+            type="button"
+            aria-label={`Add ${product.title} to cart`}
+            onClick={() => dispatch(addToCart(product))}
+          >
+            <ShoppingCart size={18} />
+          </button>
+        </div>
+      </div>
+    </article>
   );
 };
 

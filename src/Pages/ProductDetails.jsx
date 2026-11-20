@@ -1,64 +1,51 @@
-import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { ShoppingCart } from "lucide-react";
+import { ArrowLeft, ShoppingCart } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Features/cart/cartSlice";
+import { formatCurrency } from "../utils/formatCurrency";
+
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const product = useSelector((state) =>
-    state.product.items.find((p) => p.id === parseInt(id))
+    state.product.items.find((item) => item.id === Number(id))
   );
-
 
   if (!product) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Product Not Found!</h2>
-          <Link to="/" className="text-blue-600 hover:text-blue-800">
-            Return to Home
-          </Link>
-        </div>
-      </div>
+      <section className="container not-found-page">
+        <p className="eyebrow">Product unavailable</p>
+        <h1>We couldn’t find that product.</h1>
+        <p>It may have moved or is no longer in our collection.</p>
+        <Link className="button button-primary" to="/#products">Back to the shop</Link>
+      </section>
     );
   }
-  return (
-    <>
-      <div className="container mx-auto px-4 py-8">
-        <div>
-          <Link to="/" className="mb-8 inline-block">
-            Back to Products
-          </Link>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="shadow-md p-4 rounded w-[600px]">
-              <img src={product.img} alt={product.title} />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
-              <p className="text-gray-600 mb-6">{product.des}</p>
-              <div className="mb-6">
-                <span className="text-3xl font-bold">{product.price}</span>
-              </div>
-              <div className="mb-6">
-                <h1 className="font-semibold mb-2">Category</h1>
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm">
-                  {product.category}
-                </span>
-              </div>
-              <button
-                className="w-full md:w-auto bg-zinc-200 px-8 py-3 rounded-md flex items-center justify-center gap-2 hover:bg-zinc-300"
-                onClick={() => dispatch(addToCart(product))}
-              >
-                <ShoppingCart />
-                Add to Cart
-              </button>
-            </div>
-          </div>
+  return (
+    <section className="container detail-page">
+      <Link className="back-link" to="/#products"><ArrowLeft size={17} /> Back to the shop</Link>
+      <div className="detail-layout">
+        <div className="detail-image">
+          <img src={product.img} alt={product.title} />
+        </div>
+        <div className="detail-info">
+          <p className="eyebrow">{product.category}</p>
+          <h1>{product.title}</h1>
+          <p className="detail-description">{product.des}</p>
+          <p className="detail-price">{formatCurrency(product.price)}</p>
+          <p className="detail-availability"><span /> Available in this collection</p>
+          <button
+            type="button"
+            className="button button-primary detail-add-button"
+            onClick={() => dispatch(addToCart(product))}
+          >
+            <ShoppingCart size={18} /> Add to cart
+          </button>
+          <p className="checkout-disclaimer">Demo storefront. Orders and payments are not processed.</p>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

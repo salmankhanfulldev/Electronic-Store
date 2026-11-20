@@ -1,171 +1,111 @@
-// import earbud from "./assets/earbud.jpg";
-// import speakers from "./assets/speakers.jpg";
-// import watch from "./assets/watch.jpg";
-// import pendrive from "./assets/pendrive.jpg";
-// import laptop from "./assets/laptop.jpg";
-// import headset from "./assets/cat3.jpg";
-// import mouse from "./assets/mouse.jpg";
-// import camera from "./assets/camera.jpg";
-// import test1 from "./assets/test-1.jpg";
-// import test2 from "./assets/test-2.jpg";
-// import test3 from "./assets/test-3.jpg";
-// import test4 from "./assets/test-4.jpg";
-// import test5 from "./assets/test-5.jpg";
+import handfree1 from "./assets/handfree-1.webp";
+import handfree2 from "./assets/handfree-2.webp";
+import handfree3 from "./assets/handfree-3.webp";
+import laptop1 from "./assets/laptop-1.jpg";
+import laptop2 from "./assets/laptop-2.jpg";
+import monitor1 from "./assets/monitor-1.jpg";
+import monitor2 from "./assets/monitor-2.jpg";
+import monitor3 from "./assets/monitor-3.jpg";
+import monitor4 from "./assets/monitor-4.jpg";
+import powerSupply from "./assets/powersupply-1.jpg";
 
-export const products = [
+const products = [
   {
     id: 1,
-    title: "Monitor-HP",
+    title: "HP Full HD Monitor",
     price: 45.98,
-    img: "/src/assets/monitor-3.jpg",
-    category: "HP",
-    des: "This is a Monitor of HP",
-    type: "Laptop",
+    img: monitor3,
+    category: "Monitors",
+    des: "A crisp Full HD display for everyday work, study, and entertainment.",
   },
   {
     id: 2,
-    title: "Monitor-Dell",
+    title: "Dell Widescreen Monitor",
     price: 45.98,
-    img: "/src/assets/monitor-4.jpg",
-    category: "Dell",
-    des: "This is a Monitor of HP",
+    img: monitor4,
+    category: "Monitors",
+    des: "Enjoy a spacious, comfortable viewing experience with this Dell monitor.",
   },
   {
     id: 3,
-    title: "Monitor-Apple",
+    title: "Apple Retina Display",
     price: 45.98,
-    img: "/src/assets/monitor-3.jpg",
-    category: "Apple",
-    des: "This is a Monitor of HP",
+    img: monitor1,
+    category: "Monitors",
+    des: "A refined display with detailed visuals for your desk setup.",
   },
   {
     id: 4,
-    title: "Monitor-Lenovo",
+    title: "Lenovo IPS Monitor",
     price: 45.98,
-    img: "/src/assets/monitor-4.jpg",
-    category: "Lenovo",
-    des: "This is a Monitor of HP",
+    img: monitor2,
+    category: "Monitors",
+    des: "An IPS display made for clear viewing from a range of angles.",
   },
   {
     id: 5,
-    title: "Laptop-Lenovo",
+    title: "Lenovo Everyday Laptop",
     price: 45.98,
-    img: "/src/assets/laptop-1.jpg",
-    category: "Lenovo",
-    des: "This is a Monitor of HP",
+    img: laptop1,
+    category: "Laptops",
+    des: "A versatile laptop for everyday productivity and browsing.",
   },
   {
     id: 6,
-    title: "Laptop-HP",
+    title: "HP Performance Laptop",
     price: 45.98,
-    img: "/src/assets/laptop-2.jpg",
-    category: "Lenovo",
-    des: "This is a Monitor of HP",
+    img: laptop2,
+    category: "Laptops",
+    des: "A dependable laptop for getting through your daily tasks.",
   },
   {
     id: 7,
-    title: "Laptop-Dell",
+    title: "Dell Everyday Laptop",
     price: 45.98,
-    img: "/src/assets/laptop-1.jpg",
-    category: "Lenovo",
-    des: "This is a Monitor of HP",
+    img: laptop1,
+    category: "Laptops",
+    des: "A practical Dell laptop for work, study, and entertainment.",
   },
   {
     id: 8,
-    title: "Laptop-Apple",
+    title: "Apple Everyday Laptop",
     price: 45.98,
-    img: "/src/assets/laptop-2.jpg",
-    category: "Lenovo",
-    des: "This is a Monitor of HP",
+    img: laptop2,
+    category: "Laptops",
+    des: "A clean, portable laptop to keep your everyday workflow moving.",
   },
-
-  ,
   {
     id: 9,
-    title: "Handfree-Samsung",
+    title: "Samsung Wired Earphones",
     price: 10.59,
-    img: "/src/assets/handfree-1.webp",
-    category: "Handfree",
-    des: "This is a Handfree of Samsung",
+    img: handfree1,
+    category: "Audio",
+    des: "Compact earphones for listening to music and taking calls on the go.",
   },
-
   {
     id: 10,
-    title: "Handfree-Vivo",
+    title: "Vivo In-Ear Earphones",
     price: 14.5,
-    img: "/src/assets/handfree-2.webp",
-    category: "Handfree",
-    des: "This is a Handfree of Vivo",
+    img: handfree2,
+    category: "Audio",
+    des: "Comfortable in-ear audio for your daily commute and downtime.",
+  },
+  {
+    id: 11,
+    title: "Wireless Audio Earphones",
+    price: 14.5,
+    img: handfree3,
+    category: "Audio",
+    des: "A lightweight audio companion for listening wherever the day takes you.",
   },
   {
     id: 12,
-    title: "Handfree-Vivo",
-    price: 14.5,
-    img: "/src/assets/handfree-2.webp",
-    category: "Handfree",
-    des: "This is a Handfree of Vivo",
+    title: "PC Power Supply",
+    price: 79.99,
+    img: powerSupply,
+    category: "Power Supply",
+    des: "A reliable power supply for your desktop PC build.",
   },
-  // {
-  //   name: "albert twinson",
-  //   post: "store owner",
-  //   img: "/src/assets/test-1.jpg",
-  //   para: "Lorem ipsum dolor sit amet consectetur adipisicing elit Sunt fuga ducimus nostrum distinctio tempora soluta rem laborum dicta optio quas",
-  // },
-  // {
-  //   name: "alex grind",
-  //   post: "electrician",
-  //   img: "/src/assets/test-2.jpg",
-  //   para: "Lorem ipsum dolor sit amet consectetur adipisicing elit Sunt fuga ducimus nostrum distinctio tempora soluta rem laborum dicta optio quas",
-  // },
-  // {
-  //   name: "drew anderson",
-  //   post: "android developer",
-  //   img: "/src/assets/test-3.jpg",
-  //   para: "Lorem ipsum dolor sit amet consectetur adipisicing elit Sunt fuga ducimus nostrum distinctio tempora soluta rem laborum dicta optio quas",
-  // },
-  // {
-  //   name: "alex brown",
-  //   post: "web developer",
-  //   img: "/src/assets/test-4.jpg",
-  //   para: "Lorem ipsum dolor sit amet consectetur adipisicing elit Sunt fuga ducimus nostrum distinctio tempora soluta rem laborum dicta optio quas",
-  // },
-  // {
-  //   name: "James Bonds",
-  //   post: "CEO Of Camputer",
-  //   img: "/src/assets/test-4.jpg",
-  //   para: "Lorem ipsum dolor sit amet consectetur adipisicing elit Sunt fuga ducimus nostrum distinctio tempora soluta rem laborum dicta optio quas",
-  // },
 ];
+
 export default products;
-// export const reviewdata = [
-//   {
-//     img: test1,
-//     name: "albert twinson",
-//     post: "store owner",
-//     para: "Lorem ipsum dolor sit amet consectetur adipisicing elit Sunt fuga ducimus nostrum distinctio tempora soluta rem laborum dicta optio quas",
-//   },
-//   {
-//     img: test2,
-//     name: "alex grind",
-//     post: "electrician",
-//     para: "Lorem ipsum dolor sit amet consectetur adipisicing elit Sunt fuga ducimus nostrum distinctio tempora soluta rem laborum dicta optio quas",
-//   },
-//   {
-//     img: test3,
-//     name: "drew anderson",
-//     post: "android developer",
-//     para: "Lorem ipsum dolor sit amet consectetur adipisicing elit Sunt fuga ducimus nostrum distinctio tempora soluta rem laborum dicta optio quas",
-//   },
-//   {
-//     img: test4,
-//     name: "alex brown",
-//     post: "web developer",
-//     para: "Lorem ipsum dolor sit amet consectetur adipisicing elit Sunt fuga ducimus nostrum distinctio tempora soluta rem laborum dicta optio quas",
-//   },
-//   {
-//     img: test5,
-//     name: "james bond",
-//     post: "army officer",
-//     para: "Lorem ipsum dolor sit amet consectetur adipisicing elit Sunt fuga ducimus nostrum distinctio tempora soluta rem laborum dicta optio quas",
-//   },
-// ];

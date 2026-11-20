@@ -12,9 +12,11 @@ const initialState = {
 
 const filterProduct = (state) => {
   return state.items.filter((product) => {
-    const matchSearch = product.title
-      .toLowerCase()
-      .includes(state.searchTerm.toLowerCase());
+    const searchableText =
+      `${product.title} ${product.des} ${product.category}`.toLowerCase();
+    const matchSearch = searchableText.includes(
+      state.searchTerm.trim().toLowerCase()
+    );
     const matchCategory =
       state.selectedCategory === "All" ||
       product.category === state.selectedCategory;
@@ -34,8 +36,17 @@ const productSlice = createSlice({
       state.selectedCategory = action.payload;
       state.filteredItems = filterProduct(state);
     },
+    clearProductFilters: (state) => {
+      state.searchTerm = "";
+      state.selectedCategory = "All";
+      state.filteredItems = state.items;
+    },
   },
 });
 
-export const { setSearchTerm, setSelectedCategory } = productSlice.actions;
+export const {
+  setSearchTerm,
+  setSelectedCategory,
+  clearProductFilters,
+} = productSlice.actions;
 export default productSlice.reducer;

@@ -1,14 +1,29 @@
-# React + Vite
+# ElectronicStore
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive electronics storefront built with React, Vite, and Redux Toolkit.
 
-Currently, two official plugins are available:
+## Getting started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```sh
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+Open the local URL printed by Vite to browse the store.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Store features
 
-salmankhan
+- Search products by name, category, or description and filter by category.
+- View product details and add items to the shopping cart.
+- Update quantities, remove items, and review the order summary.
+- Try the checkout form and confirmation flow.
+- Use the storefront on desktop or mobile.
+
+Checkout is a front-end demo only. It does not submit personal information, create a real order, or process payment.
+
+## Scripts
+
+- `npm run dev` starts the local development server.
+- `npm run build` creates the production build.
+- `npm run preview` previews the production build.
+- `npm run lint` checks the source with ESLint.

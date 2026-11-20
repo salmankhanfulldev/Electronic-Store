@@ -1,102 +1,88 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { User, ShoppingCart } from "lucide-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, Search, ShoppingBag, X } from "lucide-react";
 import logo from "../assets/client6.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchTerm } from "../Features/products/ProductSlice";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const searchTerm = useSelector((state) => state.product.searchTerm);
-  //cart
-  //   const cartItems = useSelector((state) => state.cart.items);
-  // const itemCount = cartItems.reduce(
-  //   (total, item) => total + item.quantity,
-  //   0
-  // );
-  const cartItems = useSelector((state) => state.cart.items);
-  const itemCount = (cartItems || []).reduce(
-    (total, item) => total + item.quantity,
-    0
+  const itemCount = useSelector((state) =>
+    state.cart.item.reduce((total, item) => total + item.quantity, 0)
   );
 
-  //User Toggle
-  const handleUser = () => {
-    setIsOpen(!isOpen);
+  const handleSearch = (event) => {
+    event.preventDefault();
+    navigate("/#products");
+    setIsOpen(false);
   };
-  return (
-    <header className="bg-white shadow-md">
-      <>
-        {/* -------------------------------Header-Section---------------------  */}
-        <div className="py-4 shadow-md">
-          <ul className="container mx-auto flex flex-wrap justify-between md:flex-row px-4 md:px-2 items-center relative">
-            <div className="flex gap-4">
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/">About</Link>
-              </li>
-              <li>
-                <Link to="/">FAQs</Link>
-              </li>
-              <li>
-                <Link to="/">Contact</Link>
-              </li>
-            </div>
-            <div
-              className={`${
-                isOpen
-                  ? "flex flex-col absolute right-0 md:right-0 top-12 z-10 bg-zinc-50 p-4 gap-4"
-                  : "hidden"
-              }`}
-            >
-              <li>
-                <Link to="/">SignUp</Link>
-              </li>
-              <li>
-                <Link to="/">MyAccount</Link>
-              </li>
-            </div>
-            <User
-              size={40}
-              className="bg-gray-200 p-2 text-black rounded cursor-pointer"
-              onClick={handleUser}
-            />
-          </ul>
-        </div>
 
-        {/* -------------------------------Navbar-Section-------------------- */}
-        <nav className="flex justify-between text-center items-center container mx-auto md:py-6 py-8 px-2 ">
-          <div className="flex items-center">
-            <Link to="/" className="bg-gray-700 py-2 px-4 rounded">
-              <img src={logo} />
-            </Link>
-          </div>
-          <form className="w-1/2 sm:block hidden mr-20">
-            <input
-              type="text"
-              placeholder="Search Products"
-              className="bg-zinc-100 rounded-md border border-zinc-200 focus:outline-none py-3 px-3 w-full"
-              value={searchTerm}
-              onChange={(e) => dispatch(setSearchTerm(e.target.value))}
-            ></input>
-          </form>
-         <div className="relative">
-           <Link to={"/cart"}>
-            <ShoppingCart
-              size={54}
-              className="cursor-pointer bg-gray-200 px-3 py-4 rounded"
-            />
-            {itemCount > 0 && (
-              <span className="absolute -top-2 -right-1 bg-blue-600 text-white text-xs rounded-full flex w-5 h-5 items-center justify-center">
-                {itemCount}
-              </span>
-            )}
-          </Link>
-         </div>
+  const closeMenu = () => setIsOpen(false);
+
+  return (
+    <header className="site-header">
+      <div className="announcement-bar">
+        <p>Tech essentials, thoughtfully selected.</p>
+        <a href="mailto:salmankhan737400@gmail.com">Contact us</a>
+      </div>
+      <div className="navbar container">
+        <Link className="brand" to="/" aria-label="ElectronicStore home" onClick={closeMenu}>
+          <img src={logo} alt="" />
+          <span>
+            <strong>electronic</strong>
+            <span>STORE</span>
+          </span>
+        </Link>
+
+        <form className="search-form" role="search" onSubmit={handleSearch}>
+          <Search size={18} aria-hidden="true" />
+          <input
+            type="search"
+            aria-label="Search products"
+            placeholder="Search laptops, monitors, audio..."
+            value={searchTerm}
+            onChange={(event) => dispatch(setSearchTerm(event.target.value))}
+          />
+          <button type="submit">Search</button>
+        </form>
+
+        <nav className={`main-nav${isOpen ? " is-open" : ""}`} aria-label="Main navigation">
+          <Link to="/#products" onClick={closeMenu}>Shop</Link>
+          <Link to="/#about" onClick={closeMenu}>About</Link>
+          <Link to="/#faqs" onClick={closeMenu}>FAQs</Link>
+          <Link to="/#contact" onClick={closeMenu}>Contact</Link>
         </nav>
-      </>
+
+        <Link className="cart-link" to="/cart" aria-label={`Shopping cart, ${itemCount} items`}>
+          <ShoppingBag size={21} />
+          <span className="cart-label">Cart</span>
+          <span className="cart-count" aria-live="polite">{itemCount}</span>
+        </Link>
+
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isOpen}
+          onClick={() => setIsOpen((open) => !open)}
+        >
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
+      <form className="mobile-search container" role="search" onSubmit={handleSearch}>
+        <Search size={18} aria-hidden="true" />
+        <input
+          type="search"
+          aria-label="Search products"
+          placeholder="Search products..."
+          value={searchTerm}
+          onChange={(event) => dispatch(setSearchTerm(event.target.value))}
+        />
+        <button type="submit" aria-label="Submit search"><Search size={18} /></button>
+      </form>
     </header>
   );
 };

@@ -1,137 +1,88 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, updateQuantity } from "../Features/cart/cartSlice";
-import { Minus, Plus, Trash2 } from "lucide-react";
+import { formatCurrency } from "../utils/formatCurrency";
 
 const CartPage = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.item);
-
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-
-  console.log("CART OITEM [0]");
-  console.log(cartItems[0]);
+  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   if (cartItems.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <h2>Your Cart is Empty</h2>
-          <p className="text-gray-600 mb-4">
-            Add some Product to Your Cart to see them here...
-          </p>
-          <Link
-            to="/"
-            className="inline-block bg-zinc-200 px-6 py-2 rounded-lg hover:bg-zinc-300"
-          >
-            Continue Shopping
-          </Link>
-        </div>
-      </div>
+      <section className="container empty-cart">
+        <div className="empty-cart-icon"><ShoppingBag size={28} /></div>
+        <p className="eyebrow">Your cart</p>
+        <h1>It’s a little quiet in here.</h1>
+        <p>Explore the collection and add something you love.</p>
+        <Link className="button button-primary" to="/#products">Continue shopping</Link>
+      </section>
     );
   }
-  return (
-    <>
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-8">Shopping Cart</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 shadow-md py-4 rounded-md">
-            {cartItems.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-center gap-4 py-4 border-b"
-              >
-                <Link to={`/product/${item.id}`}>
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    className="w-24 object-cover rounded"
-                  />
-                </Link>
-                <div className="flex-1">
-                  <Link
-                    to={`/product/${item.id}`}
-                    className="font-semibold hover:text-blue-600"
-                  >
-                    {item.title}
-                  </Link>
-                  <p className="text-gray-600">{item.price}</p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <button
-                      className="p-1 rounded-full hover:bg-gray-100"
-                      onClick={() =>
-                        dispatch(
-                          updateQuantity({
-                            id: item.id,
-                            quantity: Math.max(0, item.quantity - 1),
-                          })
-                        )
-                      }
-                    >
-                      <Minus size={16} />
-                      <span>{item.quantity}</span>
-                    </button>
-                    <button
-                      className="p-1 rounded-full hover:bg-gray-100"
-                      onClick={() =>
-                        dispatch(
-                          updateQuantity({
-                            id: item.id,
-                            quantity: Math.max(0, item.quantity + 1),
-                          })
-                        )
-                      }
-                    >
-                      <Plus size={16} />
-                    </button>
-                    <div
-                      className="ml-4 text-red-500 hover:text-red-200 cursor-pointer"
-                      onClick={() => dispatch(removeFromCart(item.id))}
-                    >
-                      <Trash2 size={20} />
-                    </div>
-                  </div>
-                </div>
 
-                <div className="text-right">
-                  <p className="font-bold">
-                    ${(item.price * item.quantity).toFixed(2)}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="lg:col-span-1">
-            <div className="shadow-md bg-white py-6 rounded-md">
-              <h3 className="text-xl font-bold mb-4">Order Summary</h3>
-              <div className="space-y-2 mb-4">
-                <div className="flex justify-between ">
-                  <span>Sub Total</span>
-                  <span>${total.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between ">
-                  <span>Shipping</span>
-                  <span>Free</span>
-                </div>
-                <div className="border-t pt-2 font-bold">
-                  <div className="flex justify-between">
-                    <span>Total </span>
-                    <span>${total.toFixed(2)}</span>
-                  </div>
-                </div>
-              </div>
-              <button className="w-full bg-zinc-200 px-6 py-3 rounded-lg hover:bg-zinc-400">
-                Proceed to Checkout
-              </button>
-            </div>
-          </div>
-        </div>
+  return (
+    <section className="container cart-page">
+      <div className="page-heading">
+        <p className="eyebrow">Almost yours</p>
+        <h1>Your shopping cart</h1>
+        <p>{cartItems.reduce((count, item) => count + item.quantity, 0)} items in your bag</p>
       </div>
-    </>
+      <div className="cart-layout">
+        <div className="cart-items">
+          {cartItems.map((item) => (
+            <article className="cart-item" key={item.id}>
+              <Link className="cart-item-image" to={`/product/${item.id}`}>
+                <img src={item.img} alt={item.title} />
+              </Link>
+              <div className="cart-item-info">
+                <span className="product-category">{item.category}</span>
+                <Link className="cart-item-title" to={`/product/${item.id}`}>{item.title}</Link>
+                <span className="cart-item-unit-price">{formatCurrency(item.price)} each</span>
+                <div className="quantity-control" aria-label={`Quantity for ${item.title}`}>
+                  <button
+                    type="button"
+                    aria-label={`Decrease ${item.title} quantity`}
+                    onClick={() => dispatch(updateQuantity({ id: item.id, quantity: item.quantity - 1 }))}
+                  >
+                    <Minus size={15} />
+                  </button>
+                  <span aria-live="polite">{item.quantity}</span>
+                  <button
+                    type="button"
+                    aria-label={`Increase ${item.title} quantity`}
+                    onClick={() => dispatch(updateQuantity({ id: item.id, quantity: item.quantity + 1 }))}
+                  >
+                    <Plus size={15} />
+                  </button>
+                </div>
+              </div>
+              <div className="cart-item-total">
+                <strong>{formatCurrency(item.price * item.quantity)}</strong>
+                <button
+                  type="button"
+                  className="remove-button"
+                  aria-label={`Remove ${item.title} from cart`}
+                  onClick={() => dispatch(removeFromCart(item.id))}
+                >
+                  <Trash2 size={17} /><span>Remove</span>
+                </button>
+              </div>
+            </article>
+          ))}
+          <Link className="text-link back-to-shop" to="/#products">Continue shopping</Link>
+        </div>
+
+        <aside className="order-summary">
+          <h2>Order summary</h2>
+          <div className="summary-row"><span>Subtotal</span><span>{formatCurrency(total)}</span></div>
+          <div className="summary-row"><span>Shipping</span><span>Calculated at checkout</span></div>
+          <div className="summary-total"><span>Total</span><strong>{formatCurrency(total)}</strong></div>
+          <Link className="button button-primary checkout-button" to="/checkout">Continue to checkout</Link>
+          <p className="checkout-disclaimer">Demo checkout only. No payment will be collected.</p>
+        </aside>
+      </div>
+    </section>
   );
 };
 
